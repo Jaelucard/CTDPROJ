@@ -75,7 +75,7 @@ class SortedList:
         elif newNode.count == self.headNode.count:
             #compare based on alphabetical order if count is same
             if newNode.letter < self.headNode.letter:
-                sellf.__appendToHead(newNode)
+                self.__appendToHead(newNode)
                 return 
 
         #check if going to be inserted between any pair of Nodes (left, right)
