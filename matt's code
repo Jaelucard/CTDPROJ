@@ -1,0 +1,6 @@
+
+def function_1(m = 0, adder = 0):
+    return {(m*i-65+adder)%26:chr(i)for i in range(65,91)}
+
+d2 = function_1(m =3, adder = 6)
+print(d2)
