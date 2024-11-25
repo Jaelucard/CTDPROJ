@@ -2,7 +2,7 @@
 # ID: 2201845
 # Class: DAAA/2B/03
 
-from old_encryptDecrypt import CeasarCipher
+from encryptDecrypt import CeasarCipher
 
 class CipherKey:
     def __init__(self, message, referenceFile): 

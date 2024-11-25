@@ -1,10 +1,20 @@
-# Name: Natalie Lim Kit Ee
-# ID: 2201845
-# Class: DAAA/2B/03
+#encryption and decryption functions for Enigma, Ceasar and Rail Fence Cipher
 
 class Cipher:
     def __init__(self, message):
         self.__message = message
+
+class EnigmaCipher(Cipher):
+    def __innit__(self, message, m, c):
+        super().__init__(message)
+        self.__m = m
+        self.__c = c
+
+    def encryptEnigma(self):
+        pass
+
+    def decryptEnigma(self):
+        pass
 
 class CeasarCipher(Cipher):
     def __init__(self, message, shift, endecrypt='D'): #function overloading and assign endecrypt to D for options that just require decryption
