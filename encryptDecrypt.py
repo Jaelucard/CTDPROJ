@@ -4,13 +4,32 @@ class Cipher:
         self.__message = message
 
 class EnigmaCipher(Cipher):
-    def __innit__(self, message, m, c):
+    def __init__(self, message, m, c):
         super().__init__(message)
         self.__m = m
         self.__c = c
-
+        self.__alphabet = {0:'a', 1:'b', 2:'c', 3:'d', 4:'e', 5:'f', 6:'g', 7:'h', 8:'i', 9:'j', 10:'k', 11:'l', 12:'m', 13:'n', 14:'o', 15:'p', 16:'q', 17:'r', 18:'s', 19:'t', 20:'u', 21:'v', 22:'w', 23:'x', 24:'y', 25:'z'}
+        #remove aeiou from alphabet dictionary
     def encryptEnigma(self):
-        pass
+        #shift all letters by m and c and map to the keys in the alphabet dictionary
+
+        encoded_text = self.Cipher__message[0] #keep the first letter as it is
+        for letter in self._Cipher__message[1:-1]:
+            if letter.isalpha(): #check if letter is an alphabet
+                upper=0
+                if letter.isupper(): #check if letter is uppercase
+                    upper=1 #"save" the fact that the letter is uppercase
+                    letter=letter.lower()
+                
+                if letter not in ['a','e','i','o','u']: #check if letter is a vowel
+                    pass #shift the letters if not a vowel 
+
+                if upper==1:
+                    letter = letter.upper() #convert letter back to uppercase if it was uppercase
+            encoded_text += letter
+        
+        encoded_text += self._Cipher__message[-1] #keep the last letter as it is
+        return encoded_text
 
     def decryptEnigma(self):
         pass
