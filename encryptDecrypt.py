@@ -1,5 +1,4 @@
 #encryption and decryption functions for Enigma, Ceasar and Rail Fence Cipher
-
 class Cipher:
     def __init__(self, message):
         self.__message = message
