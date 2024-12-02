@@ -1,38 +1,65 @@
 #encryption and decryption functions for Enigma, Ceasar and Rail Fence Cipher
+import copy
 class Cipher:
     def __init__(self, message):
         self.__message = message
 
 class EnigmaCipher(Cipher):
-    def __init__(self, message, m, c):
+    def __init__(self, message, m, c, endecrypt, alphabet): #hide message, m, c and alphabet to avoid others from deciphering message
         super().__init__(message)
         self.__m = m
         self.__c = c
-        self.__alphabet = {0:'a', 1:'b', 2:'c', 3:'d', 4:'e', 5:'f', 6:'g', 7:'h', 8:'i', 9:'j', 10:'k', 11:'l', 12:'m', 13:'n', 14:'o', 15:'p', 16:'q', 17:'r', 18:'s', 19:'t', 20:'u', 21:'v', 22:'w', 23:'x', 24:'y', 25:'z'}
-        #remove aeiou from alphabet dictionary
-    def encryptEnigma(self):
-        #shift all letters by m and c and map to the keys in the alphabet dictionary
+        self.__endecrypt = endecrypt
+        self.__alphabet = alphabet
 
-        encoded_text = self.Cipher__message[0] #keep the first letter as it is
+    def encryptEnigma(self):
+        #create new dictionary to save shifted alphabet which is shifted by (mx + c mod 21)
+        shifted_alphabet = copy.deepcopy(self.__alphabet)
+        if self.__endecrypt == 1: #shift alphabet for encryption
+            for key, value in self.__alphabet.items():
+                shifted_alphabet[(self.__m * key + self.__c) % 21] = self.__alphabet[key]
+            
+            #show user how the shift has occurred
+            print("Original Alphabet:")
+            print(self.__alphabet)
+            print("     |       |       |       |       |       |       |       |       |       |        |        |        |        |        |        |        |        |        |        |        |")
+            print(shifted_alphabet)
+            print("^ Shifted Alphabet ^")
+
+        else: #shift alphabet for decryption
+            modular_inverse_m = pow(self.__m, -1, 21)  #modular inverse always exists since m is coprime with 21
+
+            for key, value in self.__alphabet.items():
+                # Reverse the shift applied during encryption
+                original_key = (modular_inverse_m * (key - self.__c)) % 21
+                shifted_alphabet[original_key] = value
+            #shift of letters cannot be shown for decryption as unknown number of times the shift has been applied
+
+        #put together the encoded/decoded message
+        text = self._Cipher__message[0] #keep first letter
         for letter in self._Cipher__message[1:-1]:
-            if letter.isalpha(): #check if letter is an alphabet
+            if letter.isalpha(): #only shift letters
                 upper=0
-                if letter.isupper(): #check if letter is uppercase
+                if letter.isupper():
                     upper=1 #"save" the fact that the letter is uppercase
                     letter=letter.lower()
-                
-                if letter not in ['a','e','i','o','u']: #check if letter is a vowel
-                    pass #shift the letters if not a vowel 
 
-                if upper==1:
-                    letter = letter.upper() #convert letter back to uppercase if it was uppercase
-            encoded_text += letter
-        
-        encoded_text += self._Cipher__message[-1] #keep the last letter as it is
-        return encoded_text
-
-    def decryptEnigma(self):
-        pass
+                if letter not in ['a','e','i','o','u']: #ignore vowels
+                    key = next(k for k, v in self.__alphabet.items() if v == letter) #get the key of the letter in the alphabet dictionary
+                    new_letter = shifted_alphabet.get(key) #get the shifted letter from the shifted alphabet dictionary
+                    if upper==1:
+                        text += new_letter.upper() #keep letter uppercase
+                    else:
+                        text += new_letter
+                else:
+                    if upper==1:
+                        text += letter.upper() #keep vowel uppercase
+                    else:
+                        text += letter #keep vowels
+            else:
+                text += letter #keep non-letters
+        text += self._Cipher__message[-1] #keep last letter
+        return text, shifted_alphabet
 
 class CeasarCipher(Cipher):
     def __init__(self, message, shift, endecrypt='D'): #function overloading and assign endecrypt to D for options that just require decryption
