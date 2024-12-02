@@ -3,11 +3,11 @@
 # Class: DAAA/2B/03
 
 import os
-from old_encryptDecrypt import CeasarCipher
+from encryptDecrypt import CeasarCipher
 from old_alphabetList import AlphabetList
 from old_alphabetList import SortedList
 from old_cipherKey import CipherKey
-from old_encryptDecrypt import RailFenceCipher
+from encryptDecrypt import RailFenceCipher
 from old_account import Account
 
 class RunProgramme:
