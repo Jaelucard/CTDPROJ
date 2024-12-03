@@ -78,11 +78,6 @@ run = RunProgramme()
 run.start()
 
 class EnigmaGame:
-<<<<<<< HEAD
-    def algorithm:
-
-print("Rachel")
-=======
     def __init__(self, root):
         self.root = root
         self.root.title("Enigma Puzzle Game")
@@ -97,6 +92,3 @@ print("Rachel")
         self.scrambled_word = ""
         self.math_problem = ""
         self.math_solution = 0
-        
-    
->>>>>>> main
