@@ -7,7 +7,7 @@ class RunProgramme:
     def start(self):
         print('\nWelcome to the Enigma Puzzle Game!')
         while True: #continually ask until exit)
-            print('\nPlease select your choice: (1,2,3,4,5,6,7,8)')
+            print('\nPlease select your choice: (1,2,3')
             print('\t1. Encrypt Message')
             print('\t2. Decrypt Message')
             print('\t3. Exit')
