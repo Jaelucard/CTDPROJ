@@ -30,14 +30,17 @@ class EnigmaGameUI:
         self.hint_label = ttk.Label(self.root, text="Hint will appear here.", style="Hint.TLabel")
         self.hint_label.pack(pady=10)
 
-        self.start_button = ttk.Button(self.root, text="Start", command=self.start_game)
-        self.start_button.pack(pady=5)
+        button_frame = ttk.Frame(self.root)
+        button_frame.pack(pady=10)
 
-        self.hint_button = ttk.Button(self.root, text="Hint", command=self.show_hint)
-        self.hint_button.pack(pady=5)
+        self.start_button = ttk.Button(button_frame, text="Start", command=self.start_game)
+        self.start_button.pack(side="left", padx=5)
 
-        self.exit_button = ttk.Button(self.root, text="Exit", command=self.exit_game)
-        self.exit_button.pack(pady=5)
+        self.hint_button = ttk.Button(button_frame, text="Hint", command=self.show_hint)
+        self.hint_button.pack(side="left", padx=5)
+
+        self.exit_button = ttk.Button(button_frame, text="Exit", command=self.exit_game)
+        self.exit_button.pack(side="left", padx=5)
 
     def update_timer(self):
         self.timer_seconds += 1
