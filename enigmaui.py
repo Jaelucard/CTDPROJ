@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
-
+#create a class
 class EnigmaGameUI:
     def __init__(self, root):
         self.root = root
@@ -27,8 +27,8 @@ class EnigmaGameUI:
         self.info_label = ttk.Label(self.root, text="Game details will appear here.", style="TLabel")
         self.info_label.pack(pady=5)
 
-        self.hint_label = ttk.Label(self.root, text="Hint will appear here.", style="Hint.TLabel")
-        self.hint_label.pack(pady=10)
+        self.text_box = tk.Text(self.root, height = 5, width = 50, wrap = "word", font = ("Helvetica", 12))
+        self.text_box.pack(pady=10)
 
         button_frame = ttk.Frame(self.root)
         button_frame.pack(pady=10)
