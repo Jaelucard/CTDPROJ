@@ -7,10 +7,11 @@ class RunProgramme:
     def start(self):
         print('\nWelcome to the Enigma Puzzle Game!')
         while True: #continually ask until exit)
-            print('\nPlease select your choice: (1,2,3')
+            print('\nPlease select your choice: (1,2,3,4')
             print('\t1. Encrypt Message')
             print('\t2. Decrypt Message')
             print('\t3. Exit')
+            print('\t4. Game')
             choice = input('Enter choice: ').replace(" ", "") #remove whitespace characters
 
 #------------------------------------------------- CHOICES -------------------------------------------------#
@@ -22,7 +23,6 @@ class RunProgramme:
 
                 #getting user input
                 message = input("\nWhat is your message? ")
-
                 #print instructions for user
                 print("\nPlease input a linear function for your encryption!")
                 if choice == '2':
@@ -78,11 +78,6 @@ run = RunProgramme()
 run.start()
 
 class EnigmaGame:
-<<<<<<< HEAD
-    def algorithm:
-
-print("Rachel")
-=======
     def __init__(self, root):
         self.root = root
         self.root.title("Enigma Puzzle Game")
@@ -99,4 +94,3 @@ print("Rachel")
         self.math_solution = 0
         
     
->>>>>>> main
