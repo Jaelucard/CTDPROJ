@@ -25,8 +25,13 @@ dictionary = {
 word_of_the_day = word_pick_random(dictionary)
 print(word_of_the_day)
 ###randomiser for values of functions to use in cipher
+<<<<<<< Updated upstream
 list_of_m_values = [1,3,5,7,9,11,13,15,17,19,21]
 list_of_c_values = [1:25]
+=======
+list_of_m_values = [5,9,11,13,15,17,19,21]
+list_of_c_values = list(range(1,26))
+>>>>>>> Stashed changes
 random_m = random.choice (list_of_m_values)
 random_c = random.choice (list_of_c_values)
 print (m,c)
