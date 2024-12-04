@@ -86,10 +86,13 @@ class GameFunction:
                 return 1
             else: 
                 return 0
+        
             '''
+        
         def failcheck_layer1(x):
         def failcheck_layer2(y):
             if y == 2: 
+        def gameover(z):
 
         #function to check answer 
         #function to accumulate points (joseph)
@@ -122,4 +125,9 @@ class GameFunction:
             #user inputs answer
             #running a check function
 '''
-print(GameFunction.encrypter('hello there joseph', 3, 11))
+
+#receive m and c values from joseph's random cipher function
+#receive message from joseph's random answer picker
+
+#TEST CASE FOR : calling the encrypter function
+print(GameFunction.encrypter('message test balls', 2, 3))
