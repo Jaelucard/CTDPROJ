@@ -25,7 +25,7 @@ dictionary = {
 word_of_the_day = word_pick_random(dictionary)
 print(word_of_the_day)
 ###randomiser for values of functions to use in cipher
-list_of_m_values = [1,3,5,,7,9,11,13,15,17,19,21]
+list_of_m_values = [1,3,5,7,9,11,13,15,17,19,21]
 list_of_c_values = [1:25]
 random_m = random.choice (list_of_m_values)
 random_c = random.choice (list_of_c_values)
@@ -37,9 +37,9 @@ score = 0
 def score_calculation (modechoice, seconds)
     ### modechoice (modifier) + remaining time(multiplier)
         ###modechoice portion, each 'easy' is 10 points and 'hard' is 20 points.
-    if class(modechoice) == 1:
+    if modechoice == 1:
         modifier = 10
-    elif class(modechoice) == 2:
+    elif modechoice == 2:
         modifier = 20
 
     remaining_time = 
