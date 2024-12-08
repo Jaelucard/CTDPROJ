@@ -34,7 +34,7 @@ print (m,c)
 
 ###score calculation
 score = 0 #starting value of score
-
+scores = []
 def score_calculation (modechoice, remaining_seconds):
     """
     takes in the type of mode (easy or hard) and the remaining seconds from jarrod's function. 
@@ -52,11 +52,13 @@ def score_calculation (modechoice, remaining_seconds):
 
     return score_per_question
 
-        ###remaining time is based on the number of secobnds left for the total points gained from the question. 
-        ###each easy question is 60 seconds with minimum 30 seconds but hard questions are 120 seconds with min 30
+       
 
 ###final score addition:
-final_score(score, number_questions)
+###storing the values of the score_per_question
+
+def final_score (score_per_question , #number of questions):
+    final = 
 
 
 ###hint function where X seconds is minused off the time section
