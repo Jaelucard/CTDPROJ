@@ -32,40 +32,25 @@ class EnigmaGame:
         self.math_solution = 0
         '''
 #"Game" mode is selected
-#Dictionary of 12 answers
-
-band_dict = {'answer1':'band1', 
-             'answer2':'band2', 
-             'answer3':'band3', 
-             'answer4':'band4', 
-             'answer5':'band5', 
-             'answer6':'band6', 
-             'answer7':'band7', 
-             'answer8':'band8', 
-             'answer9':'band9', 
-             'answer10':'band10', 
-             'answer11':'band11', 
-             'answer12':'band12'}
-
 #--------------------LIST OF FUNCTIONS------------------------------------
 class GameFunction:
     def __init__(self):
-
+        balls = 1
         #function to randomly pick from the dictionary [joseph side]
         #function to randomise the cipher??? [joseph side]
 
         #function to calculate score for each question
-        def calculate_award(modechoice, remaining_time):
-            if modechoice == '1':
-                default_score = 10
-            elif modechoice == '2':
-                default_score = 20
-            pointsgiven = (remaining_time/60)*default_score
-            return pointsgiven
+    def calculate_award(modechoice, remaining_time):
+        if modechoice == '1':
+            default_score = 10
+        elif modechoice == '2':
+            default_score = 20
+        pointsgiven = (remaining_time/60)*default_score
+        return pointsgiven
         #function to add score for each question
-        def addscore(pointsgiven, score):
-            score = score + pointsgiven
-            return score
+    def addscore(pointsgiven, score):
+        score = score + pointsgiven
+        return score
         
         #function encrypter
     def encrypter(message, m, c):
@@ -77,57 +62,39 @@ class GameFunction:
                    }
         cipher = enig(message, m, c, endecrypt=1, alphabet=alphabet)
         encrypted_message = cipher.encryptEnigma('4')
-        print(f"\nEncrypted Message: {encrypted_message}")
-        print(f"\nEncryption Cipher: {cipher.m}*key+{cipher.c}")
+        message_and_cipher = encrypted_message
+        return message_and_cipher
 
         #submit function: compare user input to answer
-        def submit(userinput):
-            if userinput == answer:
-                return 1
-            else: 
+    def submit(userinput, answer):
+        if userinput == answer:
+            return 1
+        else: 
+            return 0
+
+    def word_pick_random(dictionary):
+        ### to pick a random key:value pairing:
+        random_answer = random.choice(list (dictionary.keys()))
+        random_hint = dictionary [random_answer]
+        AnswerAndHint = [random_answer, random_hint]
+        return AnswerAndHint
+    
+    def cipher_random():
+        list_of_m_values = [5,9,11,13,15,17,19,21] # list of values of m that works, all of this are numbers that are odd and non co-prime to 21
+        list_of_c_values = list(range(1,21)) #list of values for c 
+        random_m = random.choice (list_of_m_values)
+        random_c = random.choice (list_of_c_values)
+        mclist = [random_m, random_c]
+        return (mclist)
+    
+    def get_user_choice():
+            print('\nPlease select your choice: 1,2')
+            print('\t1. Easy')
+            print('\t2. Hard')
+            user_input = input("Enter '1' or '2': ")
+            if user_input == '1' or user_input == '2':
+                print(f"You selected option {user_input}.")
+                return user_input
+            else:
+                print("Invalid choice. Please enter '1' or '2'.\n")
                 return 0
-        
-            '''
-        
-        def failcheck_layer1(x):
-        def failcheck_layer2(y):
-            if y == 2: 
-        def gameover(z):
-
-        #function to check answer 
-        #function to accumulate points (joseph)
-        #function for failcheck layer 1 
-        #function for failcheck layer 2
-        #function for hint button - subtracts time from timer (joseph)
-        #Select Easy vs Hard mode
-        print('\nPlease select your choice: 1, 2)')
-        print('\tEasy')
-        print('\tHard')
-        modechoice = input('Enter choice: ')
-        if modechoice == '1':
-            print('Easy mode has been selected') 
-            #running a function to pick a random answer
-            (PickRandomAnswerFunction - joseph)
-            #running a function to select a random cipher
-            (PickRandomCipher - joseph)
-            #answer obtained, running a function to encrypt the answer, returns "Encrypted" - input 
-            #user sees Encrypted, waiting on input
-            #user inputs answer
-            #running a check function
-        elif modechoice == '2':
-            print('Hard mode has been selected')
-            #running a function to pick a random answer
-            #running a function to select a random cipher
-            #answer obtained, running a function to encrypt the answer, returns "Encrypted"
-            #running a function to select a 2nd random cipher
-            #running a function to encrypt "Encrypted", returns "Encrypted2"
-            #user sees Encrypted2, waiting on input
-            #user inputs answer
-            #running a check function
-'''
-
-#receive m and c values from joseph's random cipher function
-#receive message from joseph's random answer picker
-
-#TEST CASE FOR : calling the encrypter function
-print(GameFunction.encrypter('message test balls', 2, 3))
