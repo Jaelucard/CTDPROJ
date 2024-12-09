@@ -130,7 +130,7 @@ class RunProgramme:
                             print("------------------------")
 
                         userinputPlaceholder = input('Your Answer:')
-                        #JARRO TO LINK SUBMIT BUTTON TO THIS:
+                        #JARROD TO LINK SUBMIT BUTTON TO THIS:
                         if game.submit(userinputPlaceholder, answer[0]) == 1: #if user answer is correct
                             progress += 1
                             failcheck1 = 0
@@ -138,15 +138,19 @@ class RunProgramme:
                             if progress >= 6: #if user has correctly answered 6 questions
                                 print("Congratulations! You've beat the game!")
                                 print(f"\nYou scored {accumulated_points}!")
+                                print(f"\nYou used {hints_used} hints.")
                                 time.sleep(1)
                                 break
                             else: #if user hasn't correctly answered 6 questions - game moves on to next question: new answer and cipher is run.
+                                print("Good job you guessed it right!")
                                 print(f"\nPoints scored: {accumulated_points}")
+                                print(f"\nYou used {hints_used} hints.")
                         else: #if user answer is wrong
                             if failcheck1 == 1: #if user has failed a question twice
                                 if failcheck2 == 1: #if user has LOST 2 questions twice
                                     print("You lost. Nice try")
                                     print(f"\nYou scored {accumulated_points} points. Try again?")
+                                    print(f"\nYou used {hints_used} hints.")
                                     time.sleep(1)
                                     break
                                 else: 
@@ -157,36 +161,30 @@ class RunProgramme:
                                 failcheck1 += 1
                                 print("Try again, you have one more chance for this question!")
                                 print(f"\nPoints scored: {accumulated_points}")
+                        #JARROD TO LINK RESET BUTTON TO TRIGGER THIS
+                        if resetbutton == 1:
+                            progress = 0
+                            failcheck1 = 0
+                            failcheck2 = 0
+                            accumulated_points = 0
+                            hints_used = 0
+                            answer = ''
+                        #JARROD TO LINKK HINT BUTTON TO TRIGGER THIS
+                        if hintbutton == 1:
+                            if remaining_time > 15:
+                            # JARROD's SIDE: SUBTRACT REMAINING_TIME BY 15
+                                remaining_time = remaining_time - 15
+                                hints_used += 1
+                                print(f"/nHint's used: {hints_used}")
+                                print(f"/nHint:{answer[1]}")
+
                         time.sleep(1)
+
                 else:
                     print("Invalid choice. Please pick again. ")
                     print('\nPlease select your choice: 1,2')
                     print('\t1. Easy')
                     print('\t2. Hard')
-
-
-
-                #JARROD TO LINK RESET BUTTON TO TRIGGER THIS
-                if resetbutton == 1:
-                    #jarrod's side: reset timer to 0
-                    progress = 0
-                    failcheck1 = 0
-                    failcheck2 = 0
-                    accumulated_points = 0
-                    answer = game.word_pick_random(band_dict)
-                    cipher = game.cipher_random()
-                    print(game.encrypter(answer[0], cipher[0], cipher[1]))
-                    
-                #JARROD TO LINK HINT BUTTON TO TRIGGER THIS
-                if hintbutton == 1:
-                    if remaining_time > 15:
-                    # JARROD's SIDE: SUBTRACT REMAINING_TIME BY 15
-                        remaining_time = remaining_time - 15
-                        hints_used += 1
-                        print(f"/nHint's used: {hints_used}")
-                        print(f"/nHint:{answer[1]}")
-
-                
 
 
             #INVALID CHOICE
