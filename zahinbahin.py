@@ -80,7 +80,7 @@ class GameFunction:
         return AnswerAndHint
     
     def cipher_random():
-        list_of_m_values = [5,9,11,13,15,17,19,21] # list of values of m that works, all of this are numbers that are odd and non co-prime to 21
+        list_of_m_values = [1,2,4,5,8,10,11,13,16,17,19,20] # list of values of m that works, all of this are numbers that are odd and non co-prime to 21
         list_of_c_values = list(range(1,21)) #list of values for c 
         random_m = random.choice (list_of_m_values)
         random_c = random.choice (list_of_c_values)
