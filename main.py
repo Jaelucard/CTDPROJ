@@ -4,6 +4,7 @@ import time
 from encryptDecrypt import EnigmaCipher as enig
 from validation import Validation as val
 from zahinbahin import GameFunction as game
+from UI import UI as ui
 class RunProgramme:
     def start(self):
         print('\nWelcome to the Enigma Puzzle Game!')
