@@ -174,7 +174,7 @@ class EnigmaGameApp:
         if game.submit(user_input, self.current_band[0]) == 1:
             self.correct_attempts += 1
             self.progress += 1
-            self.remaining_time = 60  # Reset Timer
+            self.remaining_time = 120  # Reset Timer
             messagebox.showinfo("Correct", "Great job! Moving to the next question.")
             if self.correct_attempts >= 3:
                 messagebox.showinfo("Success!", "You solved 3 in a row! Returning to the main menu.")
