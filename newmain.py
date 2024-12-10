@@ -278,6 +278,7 @@ class EnigmaGameApp:
                 messagebox.showerror("Input Error", "Please enter valid inputs!")
             else:
                 m_value = messagebox.askquestion
+                modular_inverse_m = 'hi'
                 if m == modular_inverse_m:
                     print('yes')
                 else:
