@@ -67,7 +67,7 @@ class EnigmaCipher(Cipher):
                 text += letter #keep non-letters
         text += self._Cipher__message[-1] #keep last letter
         if choice != '4': #zahin's edit - shifted alphabet will not be shown in-game
-            return text, shifted_alphabet
+            return text, self.__alphabet,shifted_alphabet
         elif choice == '4': #zahin's edit - only encrypted message will be shown in-game
             return text
 
