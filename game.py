@@ -1,45 +1,9 @@
-#List of variables:
-"""Mode (1 or 2)
-Levels 1 - 6 (progress)
-Score
-FailCounter 1(1 to 2) - inner question layer
-FailCounter 2(1 to 2) - outer game layer
-Time
-Cipher
-Cipher2
-Answer
-Encrypted
-Encrypted2
-Question Weightage List
-List of Answers"""
 import random 
 from encryptDecrypt import EnigmaCipher as enig
-''' - example for class creation
-class EnigmaGame:
-    def __init__(self, root):
-        self.root = root
-        self.root.title("Enigma Puzzle Game")
-        self.level = 1
-        self.score = 0
-        self.hints_used = 0
-        self.remaining_attempts = 2
-        self.current_step = 1
-        self.cipher = {}
-        self.secret_message = ""
-        self.encoded_message = ""
-        self.scrambled_word = ""
-        self.math_problem = ""
-        self.math_solution = 0
-        '''
-#"Game" mode is selected
+
 #--------------------LIST OF FUNCTIONS------------------------------------
 class GameFunction:
-    def __init__(self):
-        balls = 1
-        #function to randomly pick from the dictionary [joseph side]
-        #function to randomise the cipher??? [joseph side]
-
-        #function to calculate score for each question
+    #function to calculate score for each question
     def calculate_award(modechoice, remaining_time):
         if modechoice == '1':
             default_score = 10
@@ -47,14 +11,13 @@ class GameFunction:
             default_score = 20
         pointsgiven = (remaining_time/60)*default_score
         return pointsgiven
-        #function to add score for each question
+    #function to add score for each question
     def addscore(pointsgiven, score):
         score = score + pointsgiven
         return score
         
-        #function encrypter
+    #function encrypter
     def encrypter(message, m, c):
-    #link to natalie&shannon's code
         alphabet = {
         0: 'b', 1: 'c', 2: 'd', 3: 'f', 4: 'g', 5: 'h', 6: 'j', 7: 'k',
         8: 'l', 9: 'm', 10: 'n', 11: 'p', 12: 'q', 13: 'r', 14: 's', 

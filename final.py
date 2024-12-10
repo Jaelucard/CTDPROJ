@@ -1,10 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox, Toplevel
-import time
-import random
 from encryptDecrypt import EnigmaCipher as enig
-from validation import Validation as val
-from zahinbahin import GameFunction as game
+from game import GameFunction as game
 
 
 class EnigmaGameApp:
@@ -18,7 +15,7 @@ class EnigmaGameApp:
             15: 't', 16: 'v', 17: 'w', 18: 'x', 19: 'y', 20: 'z'
         }
         self.correct_attempts = 0
-        self.remaining_time = 60
+        self.remaining_time = 300
         self.progress = 0
         self.hints_used = 0
         self.band_hint = ""
@@ -43,7 +40,7 @@ class EnigmaGameApp:
         exit_button = ttk.Button(button1_frame, text="Exit", command=self.root.quit)
         exit_button.pack(side="left", padx=20)
 
-        title2_label = ttk.Label(self.root, text="Learn Educational encryption?"
+        title2_label = ttk.Label(self.root, text="Learn Educational Encryption?"
                                  , font=("Helvetica", 20))
         title2_label.pack(pady=10)
 
@@ -59,7 +56,7 @@ class EnigmaGameApp:
             widget.destroy()
 
         # Timer Display
-        self.remaining_time = 60
+        self.remaining_time = 300
         self.correct_attempts = 0
         self.timer_running = True
         self.timer_label = ttk.Label(self.root, text=f"Time Left: {self.remaining_time}s", font=("Helvetica", 12))
@@ -88,17 +85,23 @@ class EnigmaGameApp:
         self.answer_entry.pack(pady=5)
 
         # Buttons
-        button_frame = ttk.Frame(self.root)
-        button_frame.pack(pady=10)
+        button1_frame = ttk.Frame(self.root)
+        button1_frame.pack(pady=10)
 
-        submit_button = ttk.Button(button_frame, text="Submit", command=self.check_answer)
+        submit_button = ttk.Button(button1_frame, text="Submit", command=self.check_answer)
         submit_button.pack(side="left", padx=5)
 
-        hint_button = ttk.Button(button_frame, text="Hint", command=self.show_hint)
+        hint_button = ttk.Button(button1_frame, text="Hint", command=self.show_hint)
         hint_button.pack(side="left", padx=5)
 
-        encrypt_button = ttk.Button(button_frame, text="Encrypt/Decrypt", command=self.open_encrypt_window)
+        encrypt_button = ttk.Button(button1_frame, text="Decrypt", command=self.open_encrypt_window)
         encrypt_button.pack(side="left", padx=5)
+
+        button2_frame = ttk.Frame(self.root)
+        button2_frame.pack(pady=10)
+
+        back_button = ttk.Button(button2_frame, text="Back", command=self.build_main_menu)
+        back_button.pack(side="left", padx=5)
 
         # Start First Question
         self.ask_question()
@@ -116,54 +119,59 @@ class EnigmaGameApp:
 
     def ask_question(self):
         #Generate a Question.
-        self.current_band = game.word_pick_random(
-            {
+        self.current_band = game.word_pick_random({
             'die with a smile': 'bruno mars',
             'rolling in the deep': 'adele',
             'love story': 'taylor swift',
             'all i want for christmas is you': 'mariah carey',
             'treasure': 'bruno mars',
-            'im yours': 'jason mraz'
-            'cruel summer: taylor swift'
-            'thats so true: gracie adams'
-            'we fell in love in october: girl in red' 
-            'lily in the valley: Daniel'
-            'thick of it: KSI'
-            'wrecking ball: miley cyrus'
-            'perfect: one direction'
-            'night changes: one direction' 
-            'what makes you beautiful: one direction'
-            'the man who cant be moved: the script'
-            'i knew you were trouble: taylor swift'
-            'too sad to dance: jungkook'
-            'from the start: laufey' 
-            'a sky full of stars: coldplay'
-            'hymn for the weekend: coldplay'
-            'we didnt start the fire: billy joel'
-            'crazy little thing called love: queen'
-            'september: earth wind and fire ' 
-            'good life: g-eazy'
-            'wildflower: billie eilish'
-            'magnetic: illit'
-            'i wanna be like you: louis prima'
-            'super shy: newjeans' 
-            'the first snow: exo'
-            'supercalifragilisticexpialidocious: dick van dyke and julie andrews'
+            'im yours': 'jason mraz',
+            'cruel summer': 'taylor swift',
+            'thats so true': 'gracie adams',
+            'we fell in love in october': 'girl in red', 
+            'lily in the valley': 'Daniel',
+            'thick of it': 'KSI',
+            'wrecking ball': 'miley cyrus',
+            'perfect': 'one direction',
+            'night changes': 'one direction', 
+            'what makes you beautiful': 'one direction',
+            'the man who cant be moved': 'the script',
+            'i knew you were trouble': 'taylor swift',
+            'too sad to dance': 'jungkook',
+            'from the start': 'laufey',
+            'a sky full of stars': 'coldplay',
+            'hymn for the weekend': 'coldplay',
+            'we didnt start the fire': 'billy joel',
+            'crazy little thing called love': 'queen',
+            'september': 'earth wind and fire', 
+            'good life': 'g-eazy',
+            'wildflower': 'billie eilish',
+            'magnetic': 'illit',
+            'i wanna be like you': 'louis prima',
+            'super shy': 'newjeans',
+            'the first snow': 'exo',
+            'supercalifragilisticexpialidocious': 'dick van dyke and julie andrews'
             })
+
+
+        self.song_name = self.current_band[0]
         self.band_hint = self.current_band[1]
         cipher = game.cipher_random()
         encrypted_message = game.encrypter(self.current_band[0], cipher[0], cipher[1])
 
+        self.x_value = cipher[0]
+
         self.question_label.config(text=f"Guess the Song!")
-        self.encryption_label.config(text=f"Cipher: ___ x + {cipher[1]}") #{cipher[0]}
+        self.encryption_label.config(text=f"Cipher: ___ x + {cipher[1]}") 
         self.encrypted_message_label.config(text=f"Encrypted Message: {encrypted_message}")
 
     def check_answer(self):
+        """Check the User's Answer."""
         user_input = self.answer_entry.get()
         if game.submit(user_input, self.current_band[0]) == 1:
             self.correct_attempts += 1
             self.progress += 1
-            self.remaining_time = 60  # Reset Timer
+            self.remaining_time = 300  # Reset Timer
             messagebox.showinfo("Correct", "Great job! Moving to the next question.")
             if self.correct_attempts >= 3:
                 messagebox.showinfo("Success!", "You solved 3 in a row! Returning to the main menu.")
@@ -184,8 +192,9 @@ class EnigmaGameApp:
             self.build_main_menu()
 
     def learning_encrypt_window(self):
+        """Open a Pop-up Window for Encryption/Decryption."""
         popup = Toplevel(self.root)
-        popup.title("Encrypt/Decrypt")
+        popup.title("Decrypt")
         popup.geometry("400x300")
 
         mode1_label = ttk.Label(popup, text="Encryption Page", font=("Helvetica", 18))
@@ -231,12 +240,20 @@ class EnigmaGameApp:
             message = message_entry.get()
             m = m_entry.get()
             c = c_entry.get()
-            if not message or not m.isdigit() or not c.isdigit():
-                messagebox.showerror("Input Error", "Please enter valid inputs!")
-            else:
-                result_label.config(text=f"Processed Message: {encrypt_message}")
-            #add mechanism to solve for the encryption 
+            try:
+                if not message:
+                    result_label.config(text="Please enter a valid message!")
 
+                m = int(m)
+                c = int(c)
+                #encrypt/decrypt message
+                encrypted, oringinal_alphabet,shifted_alphabet = enig(message, m, c, 1, self.alphabet).encryptEnigma(1)
+                result_label.config(text=f"Processed Message: {encrypted}\n\nOriginal Alphabet:\n{oringinal_alphabet}\n\n{shifted_alphabet}\n^ Shifted Alphabet ^"
+                                    , justify="center",anchor="center",)
+                        
+            except ValueError:
+                messagebox.showerror("Input Error", "Please enter valid inputs!\nnumber needs to be integer and coprime with 21!")
+        
         process_button = ttk.Button(popup, text="Submit", command=encrypt_message)
         process_button.pack(pady=5)
 
@@ -244,6 +261,7 @@ class EnigmaGameApp:
         close_button.pack(pady=5)
 
     def open_encrypt_window(self):
+        """Open a Pop-up Window for Encryption/Decryption."""
         popup = Toplevel(self.root)
         popup.title("Encrypt/Decrypt")
         popup.geometry("400x300")
@@ -273,24 +291,19 @@ class EnigmaGameApp:
             message = message_entry.get()
             m = m_entry.get()
             c = c_entry.get()
-            
-            if not message or not m or not c:
-                messagebox.showerror("Input Error", "Please enter valid inputs!")
-            else:
-                m_value = messagebox.askquestion
-                modular_inverse_m = 'hi'
-                if m == modular_inverse_m:
-                    print('yes')
-                else:
-                    print("that's wrong! try again next time")
-                result_label.config(text=f"Processed Message: {modular_inverse_m}")
+            try:
+                m = int(m)
+                c = int(c)
+                decrypted, _,_ = enig(message,m,c,2,self.alphabet).encryptEnigma(2)
+                result_label.config(text=f"Processed Message: {decrypted}")
+            except ValueError:
+                messagebox.showerror("Input Error", "Please enter valid inputs!\nNumbers must be integer and not coprime with 21!")
 
         process_button = ttk.Button(popup, text="Submit", command=process)
         process_button.pack(pady=5)
 
         close_button = ttk.Button(popup, text="Close", command=popup.destroy)
         close_button.pack(pady=5)
-
 
 if __name__ == "__main__":
     root = tk.Tk()
