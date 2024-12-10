@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox, Toplevel
 import time
 import random
+from math import gcd
 from encryptDecrypt import EnigmaCipher as enig
 from validation import Validation as val
 from zahinbahin import GameFunction as game
@@ -241,15 +242,30 @@ class EnigmaGameApp:
 
         def encrypt_message():
             message = message_entry.get()
-        
-            if not message:
-                result_label.config(text="Please enter a valid message!")
-                return
-            
-            jumbled_message = ''.join(random.sample(message, len(message)))
+            m = m_entry.get()
+            c = c_entry.get()
+            try:
+                if not message:
+                    result_label.config(text="Please enter a valid message!")
 
+                m = int(m)
+                c = int(c)
+                alphabet = {
+                    0: 'b', 1: 'c', 2: 'd', 3: 'f', 4: 'g', 5: 'h', 6: 'j', 7: 'k',
+                    8: 'l', 9: 'm', 10: 'n', 11: 'p', 12: 'q', 13: 'r', 14: 's', 
+                    15: 't', 16: 'v', 17: 'w', 18: 'x', 19: 'y', 20: 'z'
+                }
+                #encrypt/decrypt message
+                encrypted, oringinal_alphabet,shifted_alphabet = enig(message, m, c, endecrypt = 1, alphabet = alphabet).encryptEnigma(1)
+                alphabet = shifted_alphabet #update alphabet
+                result_label.config(text=f"Processed Message: {encrypted}\n\nOriginal Alphabet:\n{oringinal_alphabet}\n\n{shifted_alphabet}\n^ Shifted Alphabet ^"
+                                    , justify="center",anchor="center",)
+                        
+            except ValueError:
+                messagebox.showerror("Input Error", "Please enter valid inputs!\nnumber needs to be integer and coprime with 21!")
+        
             # Display the jumbled encrypted message
-            return result_label.config(text=f"Processed Message: {jumbled_message}")
+            #return result_label.config(text=f"Processed Message: {jumbled_message}")
 
         process_button = ttk.Button(popup, text="Submit", command=encrypt_message)
         process_button.pack(pady=5)
@@ -288,20 +304,18 @@ class EnigmaGameApp:
             message = message_entry.get()
             m = m_entry.get()
             c = c_entry.get()
-            
-            if not message or not m or not c:
-                messagebox.showerror("Input Error", "Please enter valid inputs!")
-            else:   
-                x_value = self.x_value
-                song_name = self.song_name
-
-                m_value = int(m)
-                if m_value == x_value:
-                    print('yes')
-                    result_label.config(text=f"Processed Message: {song_name}")
-                else:
-                    print("that's wrong! try again next time")
-            #add mechanism to solve for the encryption 
+            try:
+                m = int(m)
+                c = int(c)
+                alphabet = {
+                    0: 'b', 1: 'c', 2: 'd', 3: 'f', 4: 'g', 5: 'h', 6: 'j', 7: 'k',
+                    8: 'l', 9: 'm', 10: 'n', 11: 'p', 12: 'q', 13: 'r', 14: 's', 
+                    15: 't', 16: 'v', 17: 'w', 18: 'x', 19: 'y', 20: 'z'
+                }
+                decrypted, oringinal_alphabet,new_alphabet = enig(message,m,c,2,alphabet).encryptEnigma(2)
+                result_label.config(text=f"Processed Message: {decrypted}")
+            except ValueError:
+                messagebox.showerror("Input Error", "Please enter valid inputs!\nnumber needs to be integer and coprime with 21!")
 
         process_button = ttk.Button(popup, text="Submit", command=process)
         process_button.pack(pady=5)

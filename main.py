@@ -57,7 +57,9 @@ class RunProgramme:
 
 
                     #encrypt/decrypt message
-                    message, shifted_alphabet = enig(message, gradientvalue, interceptvalue, endecrypt = int(choice), alphabet = alphabet).encryptEnigma()
+                    message, shifted_alphabet = enig(message, gradientvalue, interceptvalue, endecrypt = int(choice), alphabet = alphabet).encryptEnigma(int(choice))
+                    print(alphabet)
+                    print(shifted_alphabet)
                     alphabet = shifted_alphabet #update alphabet
                     if choice == '1':
                         print(f"\nYour encrypted message is: {message}")
