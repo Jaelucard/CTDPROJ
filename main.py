@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk, messagebox
 import random
 import time
 from encryptDecrypt import EnigmaCipher as enig
@@ -44,9 +45,15 @@ class RunProgramme:
                     gradientvalue = val.get_integer_input("Input a value for m: ",'m')
                     interceptvalue = val.get_integer_input("Input a value for c: ",'c')
                     if choice == '1':
-                        print(f"This is your encryption function: {gradientvalue}x + {interceptvalue}")
+                        if interceptvalue >= 0:
+                            print(f"This is your function: {gradientvalue}x + {interceptvalue}")
+                        else:
+                            print(f"This is your function: {gradientvalue}x - {-interceptvalue}")
                     else:
-                        print(f"This is your decryption function: {gradientvalue}x + {interceptvalue}")
+                        if interceptvalue >= 0:
+                            print(f"This is your function: {gradientvalue}x + {interceptvalue}")
+                        else:
+                            print(f"This is your function: {gradientvalue}x - {-interceptvalue}")
 
 
                     #encrypt/decrypt message
@@ -194,21 +201,3 @@ class RunProgramme:
 
 run = RunProgramme()
 run.start()
-
-class EnigmaGame:
-    def __init__(self, root):
-        self.root = root
-        self.root.title("Enigma Puzzle Game")
-        self.level = 1
-        self.score = 0
-        self.hints_used = 0
-        self.remaining_attempts = 3
-        self.current_step = 1
-        self.cipher = {}
-        self.secret_message = ""
-        self.encoded_message = ""
-        self.scrambled_word = ""
-        self.math_problem = ""
-        self.math_solution = 0
-        
-    
