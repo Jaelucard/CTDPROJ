@@ -18,7 +18,7 @@ class EnigmaGameApp:
             15: 't', 16: 'v', 17: 'w', 18: 'x', 19: 'y', 20: 'z'
         }
         self.correct_attempts = 0
-        self.remaining_time = 60
+        self.remaining_time = 120
         self.progress = 0
         self.hints_used = 0
         self.band_hint = ""
@@ -59,7 +59,7 @@ class EnigmaGameApp:
             widget.destroy()
 
         # Timer Display
-        self.remaining_time = 60
+        self.remaining_time = 120
         self.correct_attempts = 0
         self.timer_running = True
         self.timer_label = ttk.Label(self.root, text=f"Time Left: {self.remaining_time}s", font=("Helvetica", 12))
@@ -88,17 +88,23 @@ class EnigmaGameApp:
         self.answer_entry.pack(pady=5)
 
         # Buttons
-        button_frame = ttk.Frame(self.root)
-        button_frame.pack(pady=10)
+        button1_frame = ttk.Frame(self.root)
+        button1_frame.pack(pady=10)
 
-        submit_button = ttk.Button(button_frame, text="Submit", command=self.check_answer)
+        submit_button = ttk.Button(button1_frame, text="Submit", command=self.check_answer)
         submit_button.pack(side="left", padx=5)
 
-        hint_button = ttk.Button(button_frame, text="Hint", command=self.show_hint)
+        hint_button = ttk.Button(button1_frame, text="Hint", command=self.show_hint)
         hint_button.pack(side="left", padx=5)
 
-        encrypt_button = ttk.Button(button_frame, text="Encrypt/Decrypt", command=self.open_encrypt_window)
+        encrypt_button = ttk.Button(button1_frame, text="Decrypt", command=self.open_encrypt_window)
         encrypt_button.pack(side="left", padx=5)
+
+        button2_frame = ttk.Frame(self.root)
+        button2_frame.pack(pady=10)
+
+        back_button = ttk.Button(button2_frame, text="Back", command=self.build_main_menu)
+        back_button.pack(side="left", padx=5)
 
         # Start First Question
         self.ask_question()
@@ -191,7 +197,7 @@ class EnigmaGameApp:
     def learning_encrypt_window(self):
         """Open a Pop-up Window for Encryption/Decryption."""
         popup = Toplevel(self.root)
-        popup.title("Encrypt/Decrypt")
+        popup.title("Decrypt")
         popup.geometry("400x300")
 
         mode1_label = ttk.Label(popup, text="Encryption Page", font=("Helvetica", 18))
@@ -295,7 +301,6 @@ class EnigmaGameApp:
                     result_label.config(text=f"Processed Message: {song_name}")
                 else:
                     print("that's wrong! try again next time")
-            #result_label.config(text=f"Processed Message: {song_name}")
             #add mechanism to solve for the encryption 
 
         process_button = ttk.Button(popup, text="Submit", command=process)
@@ -303,7 +308,6 @@ class EnigmaGameApp:
 
         close_button = ttk.Button(popup, text="Close", command=popup.destroy)
         close_button.pack(pady=5)
-
 
 if __name__ == "__main__":
     root = tk.Tk()
