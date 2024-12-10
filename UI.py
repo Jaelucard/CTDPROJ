@@ -1,71 +1,59 @@
 import tkinter as tk
-from tkinter import ttk
-from tkinter import messagebox
+from tkinter import ttk, messagebox
+
 
 class EnigmaGameUI:
-    def __init__(self, root):
+    def __init__(self, root, logic_interface):
         self.root = root
+        self.logic = logic_interface  # Reference to the RunProgramme class
         self.root.title("Enigma Puzzle Game")
-        self.timer_seconds = 0
-        self.configure_styles()
         self.create_widgets()
 
-    def configure_styles(self):
-        style = ttk.Style()
-        style.configure("TLabel", font=("Helvetica", 12))
-        style.configure("TButton", font=("Helvetica", 12), padding=5)
-        style.configure("Title.TLabel", font=("Helvetica", 16, "bold"), padding=10)
-        style.configure("Hint.TLabel", font=("Helvetica", 12, "italic"), foreground="gray")
-
     def create_widgets(self):
-        self.title_label = ttk.Label(self.root, text="Welcome to the Enigma Puzzle Game", style="Title.TLabel")
-        self.title_label.pack(pady=10)
+        ttk.Label(self.root, text="Enigma Puzzle Game", font=("Helvetica", 16)).pack(pady=10)
 
-        self.timer_label = ttk.Label(self.root, text="Timer: 00:00", style="TLabel")
-        self.timer_label.place(relx=0.95, rely=0.05, anchor="ne")
+        self.message_label = ttk.Label(self.root, text="Enter Message:")
+        self.message_label.pack()
+        self.message_entry = ttk.Entry(self.root, width=40)
+        self.message_entry.pack()
 
-        self.info_label = ttk.Label(self.root, text="Game details will appear here.", style="TLabel")
-        self.info_label.pack(pady=5)
+        self.gradient_label = ttk.Label(self.root, text="Gradient (m):")
+        self.gradient_label.pack()
+        self.gradient_entry = ttk.Entry(self.root, width=10)
+        self.gradient_entry.pack()
 
-        self.hint_label = ttk.Label(self.root, text="Hint will appear here.", style="Hint.TLabel")
-        self.hint_label.pack(pady=10)
+        self.intercept_label = ttk.Label(self.root, text="Intercept (c):")
+        self.intercept_label.pack()
+        self.intercept_entry = ttk.Entry(self.root, width=10)
+        self.intercept_entry.pack()
 
-        button_frame = ttk.Frame(self.root)
-        button_frame.pack(pady=10)
+        self.encrypt_button = ttk.Button(self.root, text="Encrypt", command=self.encrypt_message)
+        self.encrypt_button.pack(pady=5)
 
-        self.start_button = ttk.Button(button_frame, text="Start", command=self.start_game)
-        self.start_button.pack(side="left", padx=5)
+        self.decrypt_button = ttk.Button(self.root, text="Decrypt", command=self.decrypt_message)
+        self.decrypt_button.pack(pady=5)
 
-        self.hint_button = ttk.Button(button_frame, text="Hint", command=self.show_hint)
-        self.hint_button.pack(side="left", padx=5)
+        self.exit_button = ttk.Button(self.root, text="Exit", command=self.root.quit)
+        self.exit_button.pack(pady=5)
 
-        self.exit_button = ttk.Button(button_frame, text="Exit", command=self.exit_game)
-        self.exit_button.pack(side="left", padx=5)
+    def encrypt_message(self):
+        message = self.message_entry.get()
+        gradient = self.gradient_entry.get()
+        intercept = self.intercept_entry.get()
 
-    def update_timer(self):
-        self.timer_seconds += 1
-        minutes, seconds = divmod(self.timer_seconds, 60)
-        self.timer_label.config(text=f"Timer: {minutes:02}:{seconds:02}")
-        self.root.after(1000, self.update_timer)
+        if message and gradient.isdigit() and intercept.isdigit():
+            encrypted_message = self.logic.encrypt_message(message, int(gradient), int(intercept))
+            messagebox.showinfo("Encrypted Message", f"Encrypted: {encrypted_message}")
+        else:
+            messagebox.showerror("Input Error", "Please provide valid inputs.")
 
-    def start_game(self):
-        self.timer_seconds = 0
-        self.update_timer()
-        self.info_label.config(text="Game started! Solve the puzzles to proceed.")
-        self.hint_label.config(text="Hint will appear when you request it.")
+    def decrypt_message(self):
+        message = self.message_entry.get()
+        gradient = self.gradient_entry.get()
+        intercept = self.intercept_entry.get()
 
-    def show_hint(self):
-        self.hint_label.config(text="This is your hint: [Hint placeholder]")
-        messagebox.showinfo("Hint", "Here is your hint: [Hint placeholder]")
-
-    def exit_game(self):
-        self.root.quit()
-
-
-if __name__ == "__main__":
-    root = tk.Tk()
-    root.geometry("600x500")
-    EnigmaGameUI(root)
-    root.mainloop()
-
-    #lol
+        if message and gradient.isdigit() and intercept.isdigit():
+            decrypted_message = self.logic.decrypt_message(message, int(gradient), int(intercept))
+            messagebox.showinfo("Decrypted Message", f"Decrypted: {decrypted_message}")
+        else:
+            messagebox.showerror("Input Error", "Please provide valid inputs.")
